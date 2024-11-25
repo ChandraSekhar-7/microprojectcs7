@@ -1,0 +1,269 @@
+1.C program to Convert Decimal to Octal and Hexadecimal
+
+Source Code :-
+
+#include <stdio.h>
+#include <string.h>
+void DecimalToOctal(int decimal) {
+    int remainder;
+    char octal[50];
+    int index = 0;
+    while (decimal != 0) {
+        remainder = decimal % 8;   
+        octal[index++] = remainder + ‘0’;  
+        decimal /= 8;  
+    }
+    printf(“Octal: “);
+    for (int i = index – 1; i >= 0; i--) {
+        printf(“%c”, octal[i]);
+    }
+    printf(“\n”);
+}
+
+void DecimalToHexadecimal(int decimal) {
+    int remainder;
+    char hex[50];
+    int index = 0;
+    while (decimal != 0) {
+        remainder = decimal % 16;   
+        if (remainder < 10) {
+            hex[index++] = remainder + ‘0’;  
+        } else {
+            hex[index++] = remainder – 10 + ‘A’;         }
+        decimal /= 16;  
+}
+    printf(“Hexadecimal: “);
+    for (int i = index – 1; i >= 0; i--) {
+        printf(“%c”, hex[i]);
+    }
+    printf(“\n”);
+}
+
+
+int main() {
+    int decimal;
+    printf(“Enter a decimal number: “);
+    scanf(“%d”, &decimal);
+    DecimalToOctal(decimal);
+    DecimalToHexadecimal(decimal);
+    return 0;
+}
+
+
+
+
+
+Output:-
+Enter a decimal number: 100
+Octal: 144
+Hexadecimal: 64
+
+
+AIM:-
+2.C Program to delete Number in Given Position in Array
+
+Source Code:-
+
+#include <stdio.h>
+void DeleteElement(int arr[], int *n, int position) {
+    if (position >= *n || position < 0) {
+        printf(“Invalid position!\n”);
+        return;
+    }
+    for (int i = position; i < *n – 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    (*n)--;
+}
+void displayArray(int arr[], int n) {
+    printf(“Array elements: “);
+    for (int i = 0; i < n; i++) {
+        printf(“%d “, arr[i]);
+    }
+    printf(“\n”);
+}
+
+int main() {
+    int n, position;
+    printf(“Enter the number of elements: “);
+    scanf(“%d”, &n);
+    int arr[n];
+    printf(“Enter the elements of the array:\n”);
+    for (int i = 0; i < n; i++) {
+        scanf(“%d”, &arr[i]);
+   }
+    displayArray(arr, n);    
+    printf(“Enter the position to delete (0 to %d): “, n – 1);
+    scanf(“%d”, &position);
+    DeleteElement(arr, &n, position);    
+    displayArray(arr, n);
+    return 0;
+}
+
+Output:-
+Enter the position to delete (0 to 4): 2
+Array elements: 10 20 40 50
+
+
+AIM:-
+3.C Program to Convert Numbers to Roman Numerals.
+
+Source Code:-
+
+#include <stdio.h>
+void IntToRoman(int num) {
+    char *roman[] = {“I”, “IV”, “V”, “IX”, “X”, “XL”, “L”, “XC”, “C”, “CD”, “D”, “CM”};
+  int values[] = {1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900};
+    for (int i = 11; i >= 0; i--) {
+        while (num >= values[i]) {
+            printf(“%s”, roman[i]);
+            num -= values[i];
+        }}}
+int main() {
+    int num;
+    printf(“Enter an integer: “);
+    scanf(“%d”, &num);
+    if (num < 1 || num > 3999) {
+        printf(“Enter a number between 1 and 3999.\n”);
+    } else {
+        printf(“Roman numeral: “);
+        IntToRoman(num);
+        printf(“\n”);
+    } 
+return 0;
+}
+
+Output:-
+Enter an integer: 58
+Roman numeral: LVIII
+
+
+AIM:-
+4.C program to Convert Roman Number to Decimal Number
+Source Code:-
+
+     #include <stdio.h>
+     #include <string.h
+     int RomanToDecimal(char c) {
+     switch (c) {
+        case 'I': return 1;
+        case 'V': return 5;
+        case 'X': return 10;
+        case 'L': return 50;
+        case 'C': return 100;
+        case 'D': return 500;
+        case 'M': return 1000;
+        default: return -1;  
+    }}
+int RomanToDecimalValue(char *roman) {
+    int length = strlen(roman);
+    int result = 0;
+    for (int i = 0; i < length; i++) {
+        int currentValue = RomanToDecimal(roman[i]);
+        int nextValue = (i + 1 < length) ? romanToDecimal(roman[i + 1]) : 0;
+        
+        
+        if (currentValue < nextValue) {
+            result -= currentValue;
+        } else {
+            result += currentValue;
+        }
+    }
+    return result;
+}
+ int main() {
+    char roman[20];
+    printf("Enter a Roman numeral: ");
+    scanf("%s", roman);    
+    int decimalValue = RomanToDecimalValue(roman);
+    if (decimalValue != -1) {
+        printf("The decimal value of %s is %d\n", roman, decimalValue);
+    } else {
+        printf("Invalid Roman numeral.\n");
+    }
+    return 0;
+}
+
+Output:-
+ Enter a Roman numeral: MMXXIV
+ The decimal value of MMXXIV is 2024
+
+
+AIM:-
+5.Write a Program for Match Stick Game being played between the computer and a user. Your program should ensure that the computer always wins.
+
+Rules for the game are as follows:
+
+-There are 21 matchsticks
+
+-The computer asks the player to pick 1,2,3,or4 matchsticks3
+
+-After the person picks, the computer does it's picking
+
+      -Whoever is forced to pick up the last matchstick loses the game.
+
+Source Code :-
+
+#include <stdio.h>
+void computerTurn(int *matchsticks) { 
+    int pick = (*matchsticks – 1) % 5;
+    if (pick == 0) {
+        pick = 1; 
+    }
+    printf(“Computer picks %d matchstick(s).\n”, pick);
+    *matchsticks -= pick;
+}
+void userTurn(int *matchsticks) {
+    int pick;
+    printf(“How many matchsticks do you want to pick? (1-4): “);
+    scanf(“%d”, &pick);
+    if (pick < 1 || pick > 4) {
+        printf(“Invalid input! You must pick between 1 and 4 matchsticks.\n”);
+        userTurn(matchsticks);  
+    } else {
+        *matchsticks -= pick;
+    }
+}
+
+int main() {
+    int matchsticks = 21;
+    while (matchsticks > 0) {
+        printf(“There are %d matchstick(s) left.\n”, matchsticks);
+        userTurn(&matchsticks);
+        if (matchsticks <= 0) {
+            printf(“You picked the last matchstick! You lose!\n”);
+            break;
+        }
+        computerTurn(&matchsticks);
+        if (matchsticks <= 0) {
+            printf(“Computer picked the last matchstick! You win!\n”);
+            break;
+        }
+    }
+    return 0;
+}
+
+
+Output:-
+There are 21 matchstick(s) left.
+How many matchsticks do you want to pick? (1-4): 3
+Computer picks 2 matchstick(s).
+
+There are 16 matchstick(s) left.
+How many matchsticks do you want to pick? (1-4): 4
+Computer picks 1 matchstick(s).
+
+There are 11 matchstick(s) left.
+How many matchsticks do you want to pick? (1-4): 2
+Computer picks 3 matchstick(s).
+
+There are 6 matchstick(s) left.
+How many matchsticks do you want to pick? (1-4): 2
+Computer picks 3 matchstick(s).
+
+There are 1 matchstick(s) left.
+How many matchsticks do you want to pick? (1-4): 1
+You picked the last matchstick! You lose!
+
+
+
